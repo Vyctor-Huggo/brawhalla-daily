@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+        script(src="/javascript/test.js")
+        title Document
+    body 
+        input(type="text", id="searchInput", placeholder="Digite o nome do personagem")
+        div#results
+            if characters.length > 0
+                h2 Resultados da Pesquisa:
+                ul
+                    each character in characters
+                        li= character.bio_name
+            else
+                p Nenhum personagem encontrado.

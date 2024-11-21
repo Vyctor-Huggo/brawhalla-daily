@@ -1,0 +1,106 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Barra de Pesquisa com Dropdown
+        link(rel="stylesheet", href="/styles.css")
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    body
+        form(action="/search-character" method="POST" class="search-container")
+            input#searchInput(type="text", name="searchTerm", placeholder="Pesquisar personagens...", oninput="filterDropdown()")
+            div#dropdownMenu.dropdown-content
+                each character in characters
+                    a(href="#", onclick=`selectCharacter('${character.bio_name}')`)= character.bio_name
+            button(type="submit") Pesquisar
+        script.
+            function filterDropdown() {
+                const input = document.getElementById('searchInput');
+                const filter = input.value.toUpperCase();
+                const dropdown = document.getElementById('dropdownMenu');
+                const links = dropdown.getElementsByTagName('a');
+
+                for (let i = 0; i < links.length; i++) {
+                    const txtValue = links[i].textContent || links[i].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        links[i].style.display = "";
+                    } else {
+                        links[i].style.display = "none";
+                    }
+                }
+
+                // Exibe o menu apenas se houver texto na pesquisa
+                dropdown.style.display = input.value ? "block" : "none";
+            }
+
+            function selectCharacter(name) {
+                const input = document.getElementById('searchInput');
+                const dropdown = document.getElementById('dropdownMenu');
+                
+                // Atualiza o valor do input com o nome selecionado
+                input.value = name;
+
+                // Esconde o dropdown
+                dropdown.style.display = "none";
+            }
+
+
+        style. 
+            /* Container de pesquisa */
+            .search-container {
+                position: relative;
+                width: 300px;
+                margin: 20px auto;
+            }
+
+            /* Input de pesquisa */
+            #searchInput {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                font-size: 16px;
+            }
+
+            /* Dropdown */
+            .dropdown-content {
+                position: absolute;
+                background-color: #f9f9f9;
+                width: 100%;
+                max-height: 200px;
+                overflow-y: auto;
+                border: 1px solid #ccc;
+                border-top: none;
+                z-index: 1;
+                display: none; /* Inicialmente escondido */
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 10px;
+                text-decoration: none;
+                display: block;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+
+            /* Botão */
+            button[type="submit"] {
+                margin-top: 10px;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #45a049;
+            }
