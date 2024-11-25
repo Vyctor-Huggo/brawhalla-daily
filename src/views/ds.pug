@@ -7,7 +7,7 @@ html(lang="en")
         link(rel="stylesheet", href="/styles.css")
         script(src="https://code.jquery.com/jquery-3.6.0.min.js")
     body
-        form(action="/search-character" method="POST" class="search-container")
+        form(action="/response-analysis" method="POST" class="search-container")
             input#searchInput(type="text", name="searchTerm", placeholder="Pesquisar personagens...", oninput="filterDropdown()")
             div#dropdownMenu.dropdown-content
                 each character in characters
