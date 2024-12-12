@@ -1,31 +1,34 @@
-doctype html
-html(lang="en")
+doctype
+html(lang='en')
     head
-        meta(charset="utf-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
-        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous")
-        link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous")
-        link(rel="stylesheet", href="/stylesheets/style.css")
-        title Legend
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Test
+        link(rel="stylesheet", href="/stylesheets/test.css")
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+        script(src="/javascript/search.js") 
     body
-        .container-fluid
-            .row.justify-content-center.align-items-center
-                .col-md-4
-                    .card
-                        img(src=legend.thumbnail, alt=legend.bio_name)
-                        h1= legend.bio_name
-                        h2.text-muted= legend.bio_aka
-                        p Strongest Weapons: #{legend.weapon_one} and #{legend.weapon_two}
-                        p Strength: #{legend.strength}
-                        p Dexterity: #{legend.dexterity}
-                        p Defense: #{legend.defense}
-                        p Speed: #{legend.speed}
-                        h3 Biography:
-                        p= legend.bio_text
-                        h4 Quote:
-                        p= legend.bio_quote
+        .content
+            .title
+                image(src='../images/Name.png' class='title-image')
 
+            form(action="/response-analysis" method="POST" class="search-container")
+                input#searchInput(type="text", name="searchTerm", placeholder="Pesquisar personagens...", oninput="filterDropdown()")
+                div#dropdownMenu.dropdown-content
+                    each character in characters
+                        a(href="#", onclick=`selectCharacter('${character.bio_name}')`) = character.bio_name
+                button(type="submit") Pesquisar
 
-        script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js", integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49", crossorigin="anonymous")
-        script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js", integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy", crossorigin="anonymous")
+            .result
+                .square#1
+                    p= comparisonResult ? comparisonResult.Strength || 0 : 0
+                .square#2
+                    p= comparisonResult ? comparisonResult.Dexterity || 0 : 0
+                .square#3
+                    p= comparisonResult ? comparisonResult.Defense || 0 : 0
+                .square#4
+                    p= comparisonResult ? comparisonResult.Speed || 0 : 0
+                .square#5
+                    p= comparisonResult ? (comparisonResult.WeaponOne || 0) + ' e ' + (comparisonResult.WeaponTwo || 0) : '0 e 0'
+
+            

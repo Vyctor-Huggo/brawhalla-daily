@@ -19,6 +19,10 @@ app.use(bodyParser.json())
 
 require("./routes/index")(app);
 
+app.get("/teste", (req, res) => {
+    res.render('test');
+})
+
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });

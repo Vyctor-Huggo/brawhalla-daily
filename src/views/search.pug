@@ -3,16 +3,14 @@ html(lang="en")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Barra de Pesquisa com Dropdown
+        link(rel="stylesheet", href="/stylesheets/search.css")
         script(src="https://code.jquery.com/jquery-3.6.0.min.js")
-        script(src="/javascript/test.js")
-        title Document
-    body 
-        input(type="text", id="searchInput", placeholder="Digite o nome do personagem")
-        div#results
-            if characters.length > 0
-                h2 Resultados da Pesquisa:
-                ul
-                    each character in characters
-                        li= character.bio_name
-            else
-                p Nenhum personagem encontrado.
+        script(src="/javascript/search.js") 
+    body
+        form(action="/response-analysis" method="POST" class="search-container")
+            input#searchInput(type="text", name="searchTerm", placeholder="Pesquisar personagens...", oninput="filterDropdown()")
+            div#dropdownMenu.dropdown-content
+                each character in characters
+                    a(href="#", onclick=`selectCharacter('${character.bio_name}')`) = character.bio_name
+            button(type="submit") Pesquisar

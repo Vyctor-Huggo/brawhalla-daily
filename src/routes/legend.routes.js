@@ -1,6 +1,6 @@
 const axios = require("axios");
-const { createOrUpdate, get } = require("../public/javascript/controllers/legend.controller");
-const { getRandomLegend } = require("../public/javascript/services/getRandomLegend");
+const { createOrUpdate, get } = require("../controllers/legend.controller");
+const { getRandomLegend } = require("../services/getRandomLegend");
 
 exports.legendRoutes = async (app) => {
     app.get('/legend/:id', async (req, res) => {
@@ -13,7 +13,7 @@ exports.legendRoutes = async (app) => {
         try {
             const response = await axios.get(`https://brawlhalla.fly.dev/v1/legends/id?legend_id=${legendId}`);
             const legend = response.data.data; // Dados do personagem
-            res.render('test', { legend });
+            res.render('legend', { legend });
         } catch (error) {
             console.error(error);
             res.status(500).send('Erro ao buscar dados do personagem.');

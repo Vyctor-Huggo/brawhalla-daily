@@ -1,12 +1,23 @@
-const { get } = require("../public/javascript/controllers/legend.controller");
+const { get } = require("../controllers/legend.controller");
 const axios = require("axios");
 
 exports.dailyRoutes = (app) => {
     app.get('/', async (req, res) => {
         try {
             const response = await axios.get('https://brawlhalla.fly.dev/v1/legends/all');
-            const characters = response.data.data; // Supondo que 'data' seja um array com os personagens
-            res.render('ds', { characters });
+            const characters = response.data.data;
+            res.render('search', { characters });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Erro ao buscar personagens.');
+        }
+    });
+
+    app.get('/seila', async (req, res) => {
+        try {
+            const response = await axios.get('https://brawlhalla.fly.dev/v1/legends/all');
+            const characters = response.data.data;
+            res.render('test', { characters });
         } catch (error) {
             console.error(error);
             res.status(500).send('Erro ao buscar personagens.');
@@ -40,11 +51,11 @@ exports.dailyRoutes = (app) => {
                         "Dexterity": bool_Dexterity,
                         "Defense": bool_Defense,
                         "Speed": bool_Speed,
-                        "Weapon One": bool_First_Weapon,
-                        "Weapon Two": bool_Second_Weapon
+                        "WeaponOne": bool_First_Weapon,
+                        "WeaponTwo": bool_Second_Weapon
                     }
                     
-                    res.send(comparisonResult);
+                    res.render('test', { characters, comparisonResult });
                 })
                 
             } else {
